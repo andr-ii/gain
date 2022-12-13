@@ -1,0 +1,17 @@
+{
+  "host": "jsonplaceholder.typicode.com",
+  "protocol": "https",
+  "path": "posts",
+  "method": "GET",
+  "request": {
+    "amount": 10,
+    "rps": 1,
+    "body": {
+      "value": "1",
+      "type": "number",
+      "format": "path",
+      "increment": true,
+      "step": 1
+    }
+  }
+}
