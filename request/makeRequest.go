@@ -9,11 +9,11 @@ import (
 	"net/http"
 )
 
-func makeRequest(ctx context.Context, method, url string, body *interface{}) *http.Request {
+func makeRequest(method, url string, body *interface{}) *http.Request {
 	validateMethod(&method)
 
 	reader := bodyToReader(body)
-	req, err := http.NewRequestWithContext(ctx, method, url, reader)
+	req, err := http.NewRequestWithContext(context.Background(), method, url, reader)
 
 	if err != nil {
 		panic("Could not create a request")

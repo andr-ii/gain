@@ -1,11 +1,9 @@
 package plan
 
 type Plan struct {
-	Host     string  `json:"host"`     // The host name of the desired target.
-	Protocol string  `json:"protocol"` // The protocol to use for connection: 'http' or 'https'.
-	Method   string  `json:"method"`   // A method of http(s) request. Allowed: 'GET', 'POST', 'PUT', 'DELETE'.
-	Path     *string `json:"path"`     // A path to where request should be performed.	If desired path is a root - can be not used.
-	Request  request `json:"request"`  // The request options
+	Url     string  `json:"url"`     // The full url to desired endpoint.
+	Method  string  `json:"method"`  // A method of http(s) request. Allowed: 'GET', 'POST', 'PUT', 'DELETE'.
+	Request request `json:"request"` // The request options
 }
 
 type request struct {

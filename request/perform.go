@@ -1,13 +1,11 @@
 package request
 
 import (
-	"context"
-	"fmt"
 	"net/http"
 )
 
-func Perform(ctx context.Context, method, url string, bodyStruct *interface{}) string {
-	request := makeRequest(ctx, method, url, bodyStruct)
+func Perform(ch chan string, method, url string, bodyStruct *interface{}) {
+	request := makeRequest(method, url, bodyStruct)
 
 	client := http.Client{}
 	resp, err := client.Do(request)
@@ -16,9 +14,5 @@ func Perform(ctx context.Context, method, url string, bodyStruct *interface{}) s
 		panic("An error ocurred during the request")
 	}
 
-	res := readResponse(resp)
-
-	fmt.Printf("%v\n", res)
-
-	return res
+	ch <- resp.Status
 }

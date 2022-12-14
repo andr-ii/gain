@@ -1,7 +1,5 @@
 {
-  "host": "jsonplaceholder.typicode.com",
-  "protocol": "https",
-  "path": "posts",
+  "url": "https://jsonplaceholder.typicode.com/posts",
   "method": "GET",
   "request": {
     "amount": 10,
@@ -9,7 +7,7 @@
       "value": 1
     },
     "body": {
-      "value": "1",
+      "value": 1,
       "type": "number",
       "format": "path",
       "increment": true,
