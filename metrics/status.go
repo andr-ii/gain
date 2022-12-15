@@ -1,4 +1,4 @@
-package result
+package metrics
 
 import (
 	"andr-ll/plt/terminal"
@@ -6,11 +6,9 @@ import (
 	"sync"
 )
 
-const (
-	STATUS_WIDTH  = 30
-	STATUS_HEIGHT = 8
-	STATUS_LABEL  = "STATUS"
-)
+const status_width = 40
+
+var status_label string = "STATUS"
 
 type response struct {
 	id     uint8
@@ -23,20 +21,22 @@ type status struct {
 	mut       *sync.Mutex
 	responses map[string]response
 	total     uint32
+	rps       uint16
 }
 
-func NewStatus() status {
-	_, genCol := terminal.Size()
+func newStatus() status {
+	rows, cols := terminal.Size()
 
 	s := status{
 		mut:       &sync.Mutex{},
 		responses: make(map[string]response),
 		total:     0,
+		rps:       0,
 		coordinates: coordinates{
 			row:    1,
-			col:    genCol - STATUS_WIDTH,
-			width:  STATUS_WIDTH,
-			height: STATUS_HEIGHT,
+			col:    cols - status_width,
+			width:  status_width,
+			height: rows - 5,
 		},
 	}
 
@@ -45,7 +45,15 @@ func NewStatus() status {
 	return s
 }
 
-func (s *status) Update(res string) {
+func (s *status) setRps(numb uint16) {
+	s.mut.Lock()
+	s.rps = numb
+	s.render()
+
+	s.mut.Unlock()
+}
+
+func (s *status) update(res string) {
 	s.mut.Lock()
 
 	resLen := len(s.responses)
@@ -70,15 +78,16 @@ func (s *status) render() {
 	rowStart := c.row + 3
 	colStart := c.col + 1
 
-	terminal.PrintAt(rowStart, colStart, fmt.Sprintf("Total requests: %d", s.total))
+	terminal.PrintAt(rowStart, colStart, fmt.Sprintf("RPS: %d", s.rps))
+	terminal.PrintAt(rowStart+1, colStart, fmt.Sprintf("Total requests: %d", s.total))
 
 	for status, options := range s.responses {
-		row := rowStart + options.id
+		row := rowStart + 1 + options.id
 		terminal.PrintAt(row, colStart, fmt.Sprintf("%s: %d", status, options.amount))
 	}
 }
 
 func (s *status) printStatusBox() {
 	c := s.coordinates
-	terminal.PrintBox(c.row, c.col, c.height, c.width, STATUS_LABEL)
+	terminal.PrintBox(c.row, c.col, c.height, c.width, status_label)
 }

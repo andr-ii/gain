@@ -1,17 +1,12 @@
 {
-  "url": "https://jsonplaceholder.typicode.com/posts",
+  "url": "http://localhost:3000/posts",
   "method": "GET",
+  "duration": 1,
   "request": {
-    "amount": 10,
     "rps": {
-      "value": 1
-    },
-    "body": {
       "value": 1,
-      "type": "number",
-      "format": "path",
-      "increment": true,
-      "step": 1
+      "step": 1,
+      "interval": 10
     }
   }
 }

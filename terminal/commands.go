@@ -26,11 +26,6 @@ func GracefulEnd() {
 }
 
 func PrintBox(row, col, height, width uint8, label string) {
-	height += 3
-
-	labelLen := uint8(len(label))
-	colorLabel := colors.Green(label)
-
 	PrintAt(row, col, LEFT_TOP)
 	PrintAt(row, col+width, RIGHT_TOP)
 
@@ -45,6 +40,8 @@ func PrintBox(row, col, height, width uint8, label string) {
 		}
 
 		if i == row+1 {
+			labelLen := uint8(len(label))
+			colorLabel := colors.Green(label)
 			PrintAt(row+1, col+(width-labelLen)/2, colorLabel)
 		}
 

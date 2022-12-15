@@ -7,16 +7,18 @@ import (
 )
 
 // TODO: add ability to read file from os.Args
-const FILE_PATH = "plan.json"
+const file_path = "plan.json"
+
+var plan *Plan = nil
 
 func Get() Plan {
-	file, err := os.ReadFile(FILE_PATH)
+	file, err := os.ReadFile(file_path)
 
 	if err != nil {
-		panic(fmt.Sprintf("Could not read a file: %v", FILE_PATH))
+		panic(fmt.Sprintf("Could not read a file: %v", file_path))
 	}
 
-	plan := Plan{}
+	plan = &Plan{}
 
 	err = json.Unmarshal(file, &plan)
 
@@ -24,5 +26,8 @@ func Get() Plan {
 		panic(fmt.Sprintf("Could not convert to json: %v", err))
 	}
 
-	return plan
+	validateMethod(&plan.Method)
+	validateIntervalAndStep(plan)
+
+	return *plan
 }

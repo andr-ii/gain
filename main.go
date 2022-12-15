@@ -1,9 +1,9 @@
 package main
 
 import (
+	"andr-ll/plt/metrics"
 	"andr-ll/plt/plan"
 	"andr-ll/plt/request"
-	"andr-ll/plt/result"
 	"andr-ll/plt/terminal"
 	"os"
 	"os/signal"
@@ -12,38 +12,27 @@ import (
 )
 
 func main() {
-	sigs := make(chan os.Signal, 1)
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-
+	go listenInterrupt()
 	terminal.CleanScreen()
 
 	plan := plan.Get()
-	statusChan := make(chan string)
-	s := result.NewStatus()
+	statusChan := make(chan metrics.ResponseData)
+	rpsChan := make(chan uint16)
 
-	go func() {
-		for i := 0; i < int(plan.Request.Amount); i++ {
-			request.Perform(statusChan, plan.Method, plan.Url, nil)
+	go request.Run(statusChan, rpsChan, plan)
+	go metrics.Generate(statusChan, rpsChan)
 
-			time.Sleep(time.Second)
-		}
+	<-time.After(time.Duration(plan.Duration) * time.Minute)
+	terminal.GracefulEnd()
+}
 
-		statusChan <- "done"
-	}()
+func listenInterrupt() {
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
 		<-sigs
 		terminal.GracefulEnd()
 		os.Exit(0)
 	}()
-
-	for data := range statusChan {
-		if data == "done" {
-			break
-		}
-
-		go s.Update(data)
-	}
-
-	terminal.GracefulEnd()
 }

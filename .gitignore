@@ -1,6 +1,9 @@
 # compiled output
 /plt
 
+# test server
+/server
+
 # Logs
 *.log
 
