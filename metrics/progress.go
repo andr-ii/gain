@@ -8,17 +8,12 @@ import (
 	"time"
 )
 
-const (
-	state_done = "█"
-)
-
+var state_done = "█"
 var states = []string{"░", "▒", "▓"}
-
-var rows, _ = terminal.Size()
 
 var progress_label_raw = "[ PROGRESS: "
 var progress_label = colors.Blue(progress_label_raw)
-var progress_row = rows - 2
+var progress_row = terminal.Rows - 2
 
 func newProgress(duration uint16) {
 	bar := []string{}

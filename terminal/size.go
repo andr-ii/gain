@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Size() (rows, cols uint8) {
+var Rows, Cols = func() (Rows, Cols uint8) {
 	cmd := exec.Command("stty", "size")
 	cmd.Stdin = os.Stdin
 	out, err := cmd.Output()
@@ -31,4 +31,4 @@ func Size() (rows, cols uint8) {
 	}
 
 	return result[0], result[1]
-}
+}()

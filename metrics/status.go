@@ -25,8 +25,6 @@ type status struct {
 }
 
 func newStatus() status {
-	rows, cols := terminal.Size()
-
 	s := status{
 		mut:       &sync.Mutex{},
 		responses: make(map[string]response),
@@ -34,9 +32,9 @@ func newStatus() status {
 		rps:       0,
 		coordinates: coordinates{
 			row:    1,
-			col:    cols - status_width,
+			col:    terminal.Cols - status_width,
 			width:  status_width,
-			height: rows - 5,
+			height: terminal.Rows - 5,
 		},
 	}
 
