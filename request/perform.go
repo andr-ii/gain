@@ -1,12 +1,12 @@
 package request
 
 import (
-	"andr-ll/plt/metrics"
+	"andr-ll/plt/conf"
 	"net/http"
 	"time"
 )
 
-func perform(ch chan metrics.ResponseData) {
+func perform(ch chan conf.AppData) {
 	client := http.Client{}
 	request := makeRequest()
 
@@ -17,9 +17,11 @@ func perform(ch chan metrics.ResponseData) {
 		panic("An error ocurred during the request")
 	}
 
-	ch <- metrics.ResponseData{
-		Status:        resp.Status,
-		Latency:       time.Since(startTime),
-		ContentLength: uint64(resp.ContentLength),
+	ch <- conf.AppData{
+		Response: &conf.ResponseData{
+			Status:        resp.Status,
+			Latency:       time.Since(startTime),
+			ContentLength: uint64(resp.ContentLength),
+		},
 	}
 }

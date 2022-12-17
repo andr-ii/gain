@@ -1,21 +1,19 @@
 package metrics
 
-import (
-	"andr-ll/plt/conf"
-)
+import "andr-ll/plt/conf"
 
-func Generate(ch chan ResponseData, rps chan uint16) {
-	plan := conf.Plan
+func Generate(ch chan conf.AppData) {
 	status := newStatus()
 
-	go newProgress(plan.Duration)
+	go runProgress()
 
-	for {
-		select {
-		case data := <-ch:
-			go status.update(data.Status)
-		case amount := <-rps:
-			go status.setRps(amount)
+	for data := range ch {
+		if data.Rps != nil {
+			go status.setRps(*data.Rps)
+		}
+
+		if data.Response != nil {
+			go status.update(data.Response.Status)
 		}
 	}
 }

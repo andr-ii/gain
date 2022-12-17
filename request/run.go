@@ -2,21 +2,34 @@ package request
 
 import (
 	"andr-ll/plt/conf"
-	"andr-ll/plt/metrics"
 	"time"
 )
 
-func Run(ch chan metrics.ResponseData, rps chan uint16) {
+func Run(ch chan conf.AppData) {
 	plan := conf.Plan
 	RPS := plan.RPS.Value
 
-	rps <- RPS
+	sendRps(ch, &RPS)
 
-	go start(&RPS, ch)
+	go func() {
+		for {
+			for i := 0; i < int(RPS); i++ {
+				go perform(ch)
+			}
+
+			time.Sleep(time.Second)
+		}
+	}()
 
 	for {
 		<-time.After(time.Duration(*plan.RPS.Interval) * time.Second)
 		RPS += *plan.RPS.Step
-		rps <- RPS
+		sendRps(ch, &RPS)
+	}
+}
+
+func sendRps(ch chan conf.AppData, RPS *uint16) {
+	ch <- conf.AppData{
+		Rps: RPS,
 	}
 }

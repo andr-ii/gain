@@ -15,11 +15,10 @@ func main() {
 	go listenInterrupt()
 	terminal.CleanScreen()
 
-	statusChan := make(chan metrics.ResponseData)
-	rpsChan := make(chan uint16)
+	mainChan := make(chan conf.AppData)
 
-	go request.Run(statusChan, rpsChan)
-	go metrics.Generate(statusChan, rpsChan)
+	go request.Run(mainChan)
+	go metrics.Generate(mainChan)
 
 	<-time.After(time.Duration(conf.Plan.Duration) * time.Minute)
 	terminal.GracefulEnd()
