@@ -1,4 +1,4 @@
-package plan
+package conf
 
 import (
 	"encoding/json"
@@ -9,16 +9,14 @@ import (
 // TODO: add ability to read file from os.Args
 const file_path = "plan.json"
 
-var plan *Plan = nil
-
-func Get() Plan {
+var Plan = func() PlanEntity {
 	file, err := os.ReadFile(file_path)
 
 	if err != nil {
 		panic(fmt.Sprintf("Could not read a file: %v", file_path))
 	}
 
-	plan = &Plan{}
+	plan := PlanEntity{}
 
 	err = json.Unmarshal(file, &plan)
 
@@ -27,7 +25,7 @@ func Get() Plan {
 	}
 
 	validateMethod(&plan.Method)
-	validateIntervalAndStep(plan)
+	validateIntervalAndStep(&plan)
 
-	return *plan
-}
+	return plan
+}()

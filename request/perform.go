@@ -6,9 +6,9 @@ import (
 	"time"
 )
 
-func perform(ch chan metrics.ResponseData, method, url string, bodyStruct *interface{}) {
+func perform(ch chan metrics.ResponseData) {
 	client := http.Client{}
-	request := prepare(method, url, bodyStruct)
+	request := makeRequest()
 
 	startTime := time.Now()
 	resp, err := client.Do(request)

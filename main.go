@@ -1,8 +1,8 @@
 package main
 
 import (
+	"andr-ll/plt/conf"
 	"andr-ll/plt/metrics"
-	"andr-ll/plt/plan"
 	"andr-ll/plt/request"
 	"andr-ll/plt/terminal"
 	"os"
@@ -15,14 +15,13 @@ func main() {
 	go listenInterrupt()
 	terminal.CleanScreen()
 
-	plan := plan.Get()
 	statusChan := make(chan metrics.ResponseData)
 	rpsChan := make(chan uint16)
 
-	go request.Run(statusChan, rpsChan, plan)
+	go request.Run(statusChan, rpsChan)
 	go metrics.Generate(statusChan, rpsChan)
 
-	<-time.After(time.Duration(plan.Duration) * time.Minute)
+	<-time.After(time.Duration(conf.Plan.Duration) * time.Minute)
 	terminal.GracefulEnd()
 }
 

@@ -1,6 +1,7 @@
 package request
 
 import (
+	"andr-ll/plt/conf"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -8,13 +9,14 @@ import (
 	"net/http"
 )
 
-func prepare(method, url string, body *interface{}) *http.Request {
+func makeRequest() *http.Request {
 	var reader io.Reader
+	plan := conf.Plan
 
-	if body == nil {
+	if plan.Body == nil {
 		reader = bytes.NewReader([]byte{})
 	} else {
-		reqBody, err := json.Marshal(*body)
+		reqBody, err := json.Marshal(*plan.Body)
 
 		if err != nil {
 			panic("Could not convert to json")
@@ -23,7 +25,7 @@ func prepare(method, url string, body *interface{}) *http.Request {
 		reader = bytes.NewReader(reqBody)
 	}
 
-	req, err := http.NewRequestWithContext(context.Background(), method, url, reader)
+	req, err := http.NewRequestWithContext(context.Background(), plan.Method, plan.Url, reader)
 
 	if err != nil {
 		panic("Could not create a request")

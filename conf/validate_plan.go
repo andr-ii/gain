@@ -1,4 +1,4 @@
-package plan
+package conf
 
 import (
 	"fmt"
@@ -22,17 +22,17 @@ func validateMethod(inMethod *string) {
 	panic(fmt.Sprintf("HTTP method is not allowed: %v\n", *inMethod))
 }
 
-func validateIntervalAndStep(plan *Plan) {
-	interval := plan.Request.RPS.Interval
-	step := plan.Request.RPS.Step
+func validateIntervalAndStep(plan *PlanEntity) {
+	interval := plan.RPS.Interval
+	step := plan.RPS.Step
 
 	if interval == nil {
 		newInterval := plan.Duration * 60
-		plan.Request.RPS.Interval = &newInterval
+		plan.RPS.Interval = &newInterval
 	}
 
 	if step == nil {
 		newStep := uint16(0)
-		plan.Request.RPS.Step = &newStep
+		plan.RPS.Step = &newStep
 	}
 }

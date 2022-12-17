@@ -2,11 +2,9 @@
   "url": "http://localhost:3000/posts",
   "method": "GET",
   "duration": 1,
-  "request": {
-    "rps": {
-      "value": 1,
-      "step": 1,
-      "interval": 10
-    }
+  "rps": {
+    "value": 1,
+    "step": 1,
+    "interval": 10
   }
 }

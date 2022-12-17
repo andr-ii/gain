@@ -1,11 +1,11 @@
 package metrics
 
 import (
-	"andr-ll/plt/plan"
+	"andr-ll/plt/conf"
 )
 
 func Generate(ch chan ResponseData, rps chan uint16) {
-	plan := plan.Get()
+	plan := conf.Plan
 	status := newStatus()
 
 	go newProgress(plan.Duration)
