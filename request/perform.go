@@ -11,17 +11,24 @@ func perform(ch chan conf.AppData) {
 	request := makeRequest()
 
 	startTime := time.Now()
-	resp, err := client.Do(request)
+	res, err := client.Do(request)
 
-	if err != nil {
-		panic("An error ocurred during the request")
+	var status string
+	var content uint64
+
+	if err != nil || res == nil {
+		status = "503 Service Unavailable"
+		content = 0
+	} else {
+		status = res.Status
+		content = uint64(res.ContentLength)
 	}
 
 	ch <- conf.AppData{
 		Response: &conf.ResponseData{
-			Status:        resp.Status,
+			Status:        status,
 			Latency:       time.Since(startTime),
-			ContentLength: uint64(resp.ContentLength),
+			ContentLength: content,
 		},
 	}
 }
