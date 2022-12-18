@@ -16,7 +16,7 @@ const (
 	right_bottom     = "┘"
 )
 
-func PrintAt(row, col uint8, value string) {
+func PrintAt(row, col int, value string) {
 	fmt.Printf("\x1B[%d;%dH%s", row, col, value)
 }
 
@@ -29,7 +29,7 @@ func GracefulEnd() {
 	PrintAt(Rows-1, 0, "\n")
 }
 
-func PrintBox(row, col, height, width uint8, label string) {
+func PrintBox(row, col, height, width int, label string) {
 	PrintAt(row, col, left_top)
 	PrintAt(row, col+width, right_top)
 
@@ -44,7 +44,7 @@ func PrintBox(row, col, height, width uint8, label string) {
 		}
 
 		if i == row+1 {
-			labelLen := uint8(len(label))
+			labelLen := len(label)
 			colorLabel := colors.Green(label)
 			PrintAt(row+1, col+(width-labelLen)/2, colorLabel)
 		}

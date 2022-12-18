@@ -28,7 +28,7 @@ func Run(ch chan conf.AppData) {
 	}
 }
 
-func sendRps(ch chan conf.AppData, RPS *uint16) {
+func sendRps(ch chan conf.AppData, RPS *int) {
 	ch <- conf.AppData{
 		Rps: RPS,
 	}

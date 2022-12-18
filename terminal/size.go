@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-var Rows, Cols = func() (Rows, Cols uint8) {
+var Rows, Cols = func() (Rows, Cols int) {
 	cmd := exec.Command("stty", "size")
 	cmd.Stdin = os.Stdin
 	out, err := cmd.Output()
@@ -18,16 +18,16 @@ var Rows, Cols = func() (Rows, Cols uint8) {
 
 	strSlice := strings.Split(strings.TrimSpace(string(out)), " ")
 
-	result := make([]uint8, 5)
+	result := make([]int, 5)
 
 	for id, val := range strSlice {
-		numb, err := strconv.ParseUint(val, 10, 8)
+		numb, err := strconv.Atoi(val)
 
 		if err != nil {
 			panic("Could not convert string to an uint")
 		}
 
-		result[id] = uint8(numb)
+		result[id] = int(numb)
 	}
 
 	return result[0], result[1]

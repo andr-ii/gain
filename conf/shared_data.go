@@ -6,11 +6,11 @@ import (
 
 type AppData struct {
 	Response *ResponseData
-	Rps      *uint16
+	Rps      *int
 }
 
 type ResponseData struct {
 	Status        string
 	Latency       time.Duration
-	ContentLength uint64
+	ContentLength int64
 }

@@ -14,14 +14,14 @@ func perform(ch chan conf.AppData) {
 	res, err := client.Do(request)
 
 	var status string
-	var content uint64
+	var content int64
 
 	if err != nil || res == nil {
 		status = "503 Service Unavailable"
 		content = 0
 	} else {
 		status = res.Status
-		content = uint64(res.ContentLength)
+		content = res.ContentLength
 	}
 
 	ch <- conf.AppData{

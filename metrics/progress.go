@@ -17,11 +17,11 @@ func runProgress() {
 	bar := []string{}
 	rawLabelLen := len(progress_label_raw) + 1
 	terminal.PrintAt(progress_row, 0, progress_label)
-	terminal.PrintAt(progress_row, uint8(len(progress_label_raw)+100), colors.Blue(" ]"))
+	terminal.PrintAt(progress_row, len(progress_label_raw)+100, colors.Blue(" ]"))
 
 	for {
 		time.Sleep(time.Duration(conf.Plan.Duration*600) * time.Millisecond)
 		bar = append(bar, state_done)
-		terminal.PrintAt(progress_row, uint8(rawLabelLen), strings.Join(bar, ""))
+		terminal.PrintAt(progress_row, rawLabelLen, strings.Join(bar, ""))
 	}
 }

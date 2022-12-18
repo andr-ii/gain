@@ -32,7 +32,7 @@ func validateIntervalAndStep(plan *PlanEntity) {
 	}
 
 	if step == nil {
-		newStep := uint16(0)
+		newStep := 0
 		plan.RPS.Step = &newStep
 	}
 }
