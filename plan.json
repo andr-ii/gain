@@ -4,7 +4,7 @@
   "duration": 1,
   "rps": {
     "value": 1,
-    "step": 1,
+    "step": 2,
     "interval": 10
   }
 }

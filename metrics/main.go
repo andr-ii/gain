@@ -3,17 +3,21 @@ package metrics
 import "andr-ll/plt/conf"
 
 func Generate(ch chan conf.AppData) {
-	status := newStatus()
+	responses := initResponses()
+	statistics := initStatistics()
+	latency := initLatency()
 
 	go runProgress()
 
 	for data := range ch {
 		if data.Rps != nil {
-			go status.setRps(*data.Rps)
+			go statistics.setRps(*data.Rps)
 		}
 
 		if data.Response != nil {
-			go status.update(data.Response.Status)
+			go responses.update(data.Response.Status)
+			go statistics.setTotal()
+			go latency.update(data.Response.Latency)
 		}
 	}
 }

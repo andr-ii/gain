@@ -27,7 +27,7 @@ func perform(ch chan conf.AppData) {
 	ch <- conf.AppData{
 		Response: &conf.ResponseData{
 			Status:        status,
-			Latency:       time.Since(startTime),
+			Latency:       float32(time.Since(startTime).Seconds()),
 			ContentLength: content,
 		},
 	}

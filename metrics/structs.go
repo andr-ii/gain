@@ -9,8 +9,22 @@ type response struct {
 	labelLength int
 }
 
-type status struct {
+type responses struct {
 	mut       *sync.Mutex
 	responses map[string]response
-	total     int
+}
+
+type statistics struct {
+	mut   *sync.Mutex
+	rps   int
+	total int
+}
+
+type latency struct {
+	mut    *sync.Mutex
+	min    float32
+	max    float32
+	avrg   float32
+	sum    float32
+	amount float32
 }

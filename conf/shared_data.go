@@ -1,9 +1,5 @@
 package conf
 
-import (
-	"time"
-)
-
 type AppData struct {
 	Response *ResponseData
 	Rps      *int
@@ -11,6 +7,6 @@ type AppData struct {
 
 type ResponseData struct {
 	Status        string
-	Latency       time.Duration
+	Latency       float32
 	ContentLength int64
 }
