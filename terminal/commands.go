@@ -46,7 +46,7 @@ func PrintBox(row, col, height, width int, label string) {
 		if i == row+1 {
 			labelLen := len(label)
 			colorLabel := colors.Green(label)
-			PrintAt(row+1, col+(width-labelLen)/2, colorLabel)
+			PrintAt(row+1, (col+(width-labelLen)/2)+1, colorLabel)
 		}
 
 		PrintAt(i, col, vertical_score)
