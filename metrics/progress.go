@@ -10,7 +10,7 @@ import (
 var state_done = colors.Blue("█")
 var progress_label_raw = "[ PROGRESS: "
 var progress_label = colors.Blue(progress_label_raw)
-var progress_row = statistics_height + 2
+var progress_row = conf.DEFAULT_HEIGHT + 2
 
 func runProgress() {
 	progressCol := len(progress_label_raw) + 1

@@ -1,44 +1,62 @@
 package metrics
 
 import (
+	"andr-ll/plt/conf"
 	"andr-ll/plt/terminal"
 	"fmt"
 	"sync"
 )
 
-var latency_width = 30
-var latency_height = 10
+type latency struct {
+	mut    *sync.Mutex
+	min    labeledValues[float32]
+	max    labeledValues[float32]
+	avrg   labeledValues[float32]
+	sum    float32
+	amount float32
+}
+
 var latency_row = 1
-var latency_col = responses_col + responses_width + 1
+var latency_col = responses_col + conf.DEFAULT_WIDTH + 1
 var latency_label = "LATENCY"
 var latency_start_col = latency_col + 2
 
-var min_latency_row = latency_row + 3
 var min_latency_label = "Min:"
-var min_latency_distance = len(min_latency_label) + latency_start_col + 1
-
-var max_latency_row = min_latency_row + 1
 var max_latency_label = "Max:"
-var max_latency_distance = len(max_latency_label) + latency_start_col + 1
-
-var avrg_latency_row = max_latency_row + 1
 var avrg_latency_label = "Avrg:"
-var avrg_latency_distance = len(avrg_latency_label) + latency_start_col + 1
 
 func initLatency() latency {
 	l := latency{
-		mut:    &sync.Mutex{},
-		min:    0,
-		max:    0,
-		avrg:   0,
+		mut: &sync.Mutex{},
+		min: labeledValues[float32]{
+			value:    0,
+			label:    fmt.Sprintf("%s        sec", min_latency_label),
+			distance: len(min_latency_label) + latency_start_col + 1,
+			row:      latency_row + 3,
+			col:      latency_start_col,
+		},
+		max: labeledValues[float32]{
+			value:    0,
+			label:    fmt.Sprintf("%s        sec", max_latency_label),
+			distance: len(max_latency_label) + latency_start_col + 1,
+			row:      latency_row + 4,
+			col:      latency_start_col,
+		},
+		avrg: labeledValues[float32]{
+			value:    0,
+			label:    fmt.Sprintf("%s        sec", avrg_latency_label),
+			distance: len(avrg_latency_label) + latency_start_col + 1,
+			row:      latency_row + 5,
+			col:      latency_start_col,
+		},
 		sum:    0,
 		amount: 0,
 	}
 
-	terminal.PrintBox(latency_row, latency_col, latency_height, latency_width, latency_label)
-	terminal.PrintAt(min_latency_row, latency_start_col, min_latency_label)
-	terminal.PrintAt(max_latency_row, latency_start_col, max_latency_label)
-	terminal.PrintAt(avrg_latency_row, latency_start_col, avrg_latency_label)
+	terminal.PrintBox(latency_row, latency_col, latency_label)
+	l.min.init()
+	l.max.init()
+	l.avrg.init()
 
 	return l
 }
@@ -46,20 +64,17 @@ func initLatency() latency {
 func (l *latency) update(lastLatency float32) {
 	l.mut.Lock()
 
-	if l.min == 0 || l.min > lastLatency {
-		l.min = lastLatency
-		terminal.PrintAt(min_latency_row, min_latency_distance, fmt.Sprintf("%0.4f sec", l.min))
+	if l.min.value == 0 || l.min.value > lastLatency {
+		l.min.update(lastLatency)
 	}
 
-	if l.max == 0 || l.max < lastLatency {
-		l.max = lastLatency
-		terminal.PrintAt(max_latency_row, max_latency_distance, fmt.Sprintf("%0.4f sec", l.max))
+	if l.max.value == 0 || l.max.value < lastLatency {
+		l.max.update(lastLatency)
 	}
 
 	l.sum += lastLatency
 	l.amount += 1
-	l.avrg = l.sum / l.amount
-	terminal.PrintAt(avrg_latency_row, avrg_latency_distance, fmt.Sprintf("%0.4f sec", l.avrg))
+	l.avrg.update(l.sum / l.amount)
 
 	l.mut.Unlock()
 }

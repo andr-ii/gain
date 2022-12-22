@@ -2,6 +2,7 @@ package terminal
 
 import (
 	"andr-ll/plt/colors"
+	"andr-ll/plt/conf"
 	"fmt"
 )
 
@@ -16,6 +17,9 @@ const (
 	right_bottom     = "┘"
 )
 
+var width = conf.DEFAULT_WIDTH
+var height = conf.DEFAULT_HEIGHT
+
 func PrintAt(row, col int, value string) {
 	fmt.Printf("\x1B[%d;%dH%s", row, col, value)
 }
@@ -29,7 +33,7 @@ func GracefulEnd() {
 	PrintAt(Rows-1, 0, "\n")
 }
 
-func PrintBox(row, col, height, width int, label string) {
+func PrintBox(row, col int, label string) {
 	PrintAt(row, col, left_top)
 	PrintAt(row, col+width, right_top)
 

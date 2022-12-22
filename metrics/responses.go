@@ -1,15 +1,26 @@
 package metrics
 
 import (
+	"andr-ll/plt/conf"
 	"andr-ll/plt/terminal"
 	"fmt"
 	"sync"
 )
 
-var responses_width = 30
-var responses_height = 10
+type responses struct {
+	mut       *sync.Mutex
+	responses map[string]response
+}
+
+type response struct {
+	id          int
+	amount      int
+	set         bool
+	labelLength int
+}
+
 var responses_row = 1
-var responses_col = statistics_width + 2
+var responses_col = conf.DEFAULT_WIDTH + 2
 var responses_label = "RESPONSES"
 
 func initResponses() responses {
@@ -18,7 +29,7 @@ func initResponses() responses {
 		responses: make(map[string]response),
 	}
 
-	terminal.PrintBox(responses_row, responses_col, responses_height, responses_width, responses_label)
+	terminal.PrintBox(responses_row, responses_col, responses_label)
 
 	return r
 }

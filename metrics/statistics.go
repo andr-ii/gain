@@ -7,47 +7,63 @@ import (
 	"sync"
 )
 
-var statistics_width = 30
-var statistics_height = 10
+type statistics struct {
+	mut   *sync.Mutex
+	rps   labeledValues[int]
+	total labeledValues[int]
+}
+
 var statistics_row = 1
 var statistics_col = 1
 var statistics_label = "STATISTICS"
 var statistics_start_col = statistics_col + 2
 
-var rps_row = statistics_row + 3
 var rps_label = "RPS:"
-var rps_distance = len(rps_label) + statistics_start_col + 1
-
-var req_row = rps_row + 4
 var req_label = "Total requests:"
-var req_distance = len(req_label) + statistics_start_col + 1
+
+var static_info = []string{
+	fmt.Sprintf("RPS step: %d", *conf.Plan.RPS.Step),
+	fmt.Sprintf("RPS interval: %d sec", *conf.Plan.RPS.Interval),
+	fmt.Sprintf("Duration: %d min", conf.Plan.Duration),
+}
 
 func initStatistics() statistics {
 	s := statistics{
-		mut:   &sync.Mutex{},
-		rps:   conf.Plan.RPS.Value,
-		total: 0,
+		mut: &sync.Mutex{},
+		rps: labeledValues[int]{
+			value:    conf.Plan.RPS.Value,
+			label:    rps_label,
+			distance: len(rps_label) + statistics_start_col + 1,
+			row:      statistics_row + 3,
+			col:      statistics_start_col,
+		},
+		total: labeledValues[int]{
+			value:    0,
+			label:    req_label,
+			distance: len(req_label) + statistics_start_col + 1,
+			row:      statistics_row + 7,
+			col:      statistics_start_col,
+		},
 	}
-	terminal.PrintBox(statistics_row, statistics_col, statistics_height, statistics_width, statistics_label)
-	terminal.PrintAt(rps_row, statistics_start_col, rps_label)
-	terminal.PrintAt(rps_row+1, statistics_start_col, fmt.Sprintf("RPS step: %d", *conf.Plan.RPS.Step))
-	terminal.PrintAt(rps_row+2, statistics_start_col, fmt.Sprintf("RPS interval: %d sec", *conf.Plan.RPS.Interval))
-	terminal.PrintAt(rps_row+3, statistics_start_col, fmt.Sprintf("Duration: %d min", conf.Plan.Duration))
-	terminal.PrintAt(req_row, statistics_start_col, req_label)
+
+	terminal.PrintBox(statistics_row, statistics_col, statistics_label)
+	s.rps.init()
+	for id, value := range static_info {
+		terminal.PrintAt(s.rps.row+id+1, statistics_start_col, value)
+	}
+	s.total.init()
 
 	return s
 }
 
 func (s *statistics) setRps(numb int) {
 	s.mut.Lock()
-	s.rps = numb
-	terminal.PrintAt(rps_row, rps_distance, fmt.Sprint(s.rps))
+	s.rps.update(numb)
 	s.mut.Unlock()
 }
 
 func (s *statistics) setTotal() {
 	s.mut.Lock()
-	s.total += 1
-	terminal.PrintAt(req_row, req_distance, fmt.Sprint(s.total))
+	s.total.update(s.total.value + 1)
 	s.mut.Unlock()
 }
