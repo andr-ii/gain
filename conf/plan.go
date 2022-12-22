@@ -4,16 +4,22 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
-// TODO: add ability to read file from os.Args
-const file_path = "plan.json"
-
 var Plan = func() PlanEntity {
-	file, err := os.ReadFile(file_path)
+	args := parseArgs()
+
+	filePathAbs, err := filepath.Abs(args[0])
 
 	if err != nil {
-		panic(fmt.Sprintf("Could not read a file: %v", file_path))
+		panic("Could not create an absolute path to a file %s")
+	}
+
+	file, err := os.ReadFile(filePathAbs)
+
+	if err != nil {
+		panic(fmt.Sprintf("Could not read a file: %v", filePathAbs))
 	}
 
 	plan := PlanEntity{}
