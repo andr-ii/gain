@@ -19,6 +19,10 @@ func Yellow(str string) string {
 	return set(226, str)
 }
 
+func Orange(str string) string {
+	return set(220, str)
+}
+
 func Blue(str string) string {
 	return set(45, str)
 }

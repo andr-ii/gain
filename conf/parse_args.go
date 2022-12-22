@@ -5,8 +5,6 @@ import (
 	"os"
 )
 
-const CURRENT_VERSION = "v0.1.0"
-
 func parseArgs() []string {
 	args := os.Args[1:]
 

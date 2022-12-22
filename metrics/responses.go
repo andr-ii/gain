@@ -1,9 +1,12 @@
 package metrics
 
 import (
+	"andr-ll/plt/colors"
 	"andr-ll/plt/conf"
 	"andr-ll/plt/terminal"
 	"fmt"
+	"strconv"
+	"strings"
 	"sync"
 )
 
@@ -64,7 +67,24 @@ func (s *responses) render() {
 			value = fmt.Sprint(options.amount)
 		} else {
 			distance = responses_col + 2
-			value = fmt.Sprintf("%s: %d", response, options.amount)
+			statusSlice := strings.Split(response, " ")
+			numbStatus, err := strconv.Atoi(statusSlice[0])
+
+			if err != nil {
+				panic("Could not convert status code to number")
+			}
+
+			var coloredStatus string
+
+			if numbStatus >= 200 && numbStatus < 400 {
+				coloredStatus = colors.Green(fmt.Sprint(numbStatus))
+			} else if numbStatus >= 400 && numbStatus < 500 {
+				coloredStatus = colors.Orange(fmt.Sprint(numbStatus))
+			} else if numbStatus >= 500 {
+				coloredStatus = colors.Red(fmt.Sprint(numbStatus))
+			}
+
+			value = fmt.Sprintf("%s %s: %d", coloredStatus, strings.Join(statusSlice[1:], " "), options.amount)
 		}
 
 		terminal.PrintAt(options.id+3, distance, value)
