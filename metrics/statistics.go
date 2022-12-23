@@ -61,7 +61,7 @@ func (s *statistics) setRps(numb int) {
 	s.mut.Lock()
 	s.rps.update(numb)
 
-	if s.rps.value == *conf.Plan.RPS.Max {
+	if conf.Plan.RPS.Max != nil && s.rps.value == *conf.Plan.RPS.Max {
 		s.rps.addPostfix(colors.Red("Max"))
 	}
 

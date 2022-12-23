@@ -5,14 +5,28 @@
   "rps": {
     "value": 1,
     "step": 2,
-    "interval": 10,
-    "max": 3
+    "interval": 10
   },
   "body": {
     "value": {
-      "name": "some user",
-      "last_name": "some last name",
-      "age": 20
-    }
+      "company": "Microsoft"
+    },
+    "dynamic": [
+      {
+        "key": "name",
+        "type": "string",
+        "length": 12
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "range": [20, 50]
+      },
+      {
+        "key": "city",
+        "type": "string",
+        "values": ["New-York", "London", "Barcelona"]
+      }
+    ]
   }
 }

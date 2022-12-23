@@ -23,8 +23,16 @@ type rps struct {
 }
 
 type body struct {
-	Value *interface{} `json:"value"` // A body for requests
+	Value     *map[string]any `json:"value"`   // A body for requests.
+	DynFields *[]dynField     `json:"dynamic"` // A field which specifies if body should be changed from each request.
+}
 
+type dynField struct {
+	Key    string  `json:"key"`    // A key of dynamic field.
+	Type   string  `json:"type"`   // A type of field (string, number).
+	Range  *[2]int `json:"range"`  // If type is number - random number in given range.
+	Length *int    `json:"length"` // If type string - length of random string.
+	Values *[]any  `json:"values"` // Available values for desired field.
 }
 
 var Plan = func() PlanEntity {
