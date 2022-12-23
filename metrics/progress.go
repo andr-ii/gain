@@ -1,9 +1,9 @@
 package metrics
 
 import (
-	"andr-ll/plt/colors"
-	"andr-ll/plt/conf"
-	"andr-ll/plt/terminal"
+	"andr-ll/gain/colors"
+	"andr-ll/gain/conf"
+	"andr-ll/gain/terminal"
 	"time"
 )
 

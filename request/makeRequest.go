@@ -1,8 +1,8 @@
 package request
 
 import (
-	"andr-ll/plt/conf"
-	"andr-ll/plt/random"
+	"andr-ll/gain/conf"
+	"andr-ll/gain/random"
 	"bytes"
 	"context"
 	"encoding/json"

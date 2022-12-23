@@ -1,3 +1,3 @@
-module andr-ll/plt
+module andr-ll/gain
 
 go 1.19

@@ -1,8 +1,8 @@
 package terminal
 
 import (
-	"andr-ll/plt/colors"
-	"andr-ll/plt/conf"
+	"andr-ll/gain/colors"
+	"andr-ll/gain/conf"
 	"fmt"
 )
 

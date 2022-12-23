@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"andr-ll/plt/conf"
-	"andr-ll/plt/terminal"
+	"andr-ll/gain/conf"
+	"andr-ll/gain/terminal"
 	"fmt"
 	"sync"
 )
