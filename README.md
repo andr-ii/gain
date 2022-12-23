@@ -5,7 +5,7 @@ Inspired by [k6](https://github.com/grafana/k6) and [yandex-tank](https://github
 
 ## ** IN DEVELOPMENT **
 
-<img src="https://github.com/andr-ll/gain/blob/master/assets/gain.png?raw=true"/>
+<img src="https://github.com/andr-ll/gain/blob/master/assets/gain.PNG?raw=true"/>
 
 ## Installation
 
