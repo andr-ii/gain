@@ -31,6 +31,7 @@ func CleanScreen() {
 
 func GracefulEnd() {
 	PrintAt(Rows-1, 0, "\n")
+	fmt.Printf("\x1B[?25h")
 }
 
 func PrintBox(row, col int, label string) {
