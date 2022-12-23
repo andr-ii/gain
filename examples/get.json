@@ -5,6 +5,7 @@
   "rps": {
     "value": 1,
     "step": 2,
-    "interval": 10
+    "interval": 10,
+    "max": 3
   }
 }

@@ -23,6 +23,10 @@ func Run(ch chan conf.AppData) {
 
 	for {
 		<-time.After(time.Duration(*plan.RPS.Interval) * time.Second)
+		if plan.RPS.Max != nil && RPS >= *plan.RPS.Max {
+			continue
+		}
+
 		RPS += *plan.RPS.Step
 		sendRps(ch, &RPS)
 	}

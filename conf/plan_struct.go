@@ -9,7 +9,7 @@ type PlanEntity struct {
 }
 
 type rps struct {
-	Max      *int `json:"max_rps"`  // A maximum amount of RPS. Depends on 'Incr'.
+	Max      *int `json:"max"`      // A maximum amount of RPS. Depends on 'Incr'.
 	Value    int  `json:"value"`    // A default value of RPS.
 	Interval *int `json:"interval"` // An interval in which PRS value should be increased.
 	Step     *int `json:"step"`     // A value which has to be added to default on each iteration. Depends on 'Incr'.
