@@ -32,3 +32,7 @@ func (l *labeledValues[T]) update(newValue T) {
 
 	terminal.PrintAt(l.row, l.distance, toPrint)
 }
+
+func (l *labeledValues[T]) addPostfix(value string) {
+	terminal.PrintAt(l.row, l.distance+len(fmt.Sprint(l.value))+1, value)
+}

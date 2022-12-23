@@ -12,6 +12,11 @@ var methods = [4]string{
 	http.MethodDelete,
 }
 
+func validatePlan(plan *PlanEntity) {
+	validateMethod(&plan.Method)
+	validateIntervalAndStep(plan)
+}
+
 func validateMethod(inMethod *string) {
 	for _, method := range methods {
 		if method == *inMethod {

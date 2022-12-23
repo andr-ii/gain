@@ -1,6 +1,7 @@
 package metrics
 
 import (
+	"andr-ll/plt/colors"
 	"andr-ll/plt/conf"
 	"andr-ll/plt/terminal"
 	"fmt"
@@ -59,6 +60,11 @@ func initStatistics() statistics {
 func (s *statistics) setRps(numb int) {
 	s.mut.Lock()
 	s.rps.update(numb)
+
+	if conf.Plan.RPS.Max != nil && s.rps.value == *conf.Plan.RPS.Max {
+		s.rps.addPostfix(colors.Red("Max"))
+	}
+
 	s.mut.Unlock()
 }
 
