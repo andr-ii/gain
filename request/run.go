@@ -2,6 +2,7 @@ package request
 
 import (
 	"andr-ll/plt/conf"
+	"math"
 	"time"
 )
 
@@ -27,7 +28,7 @@ func Run(ch chan conf.AppData) {
 			continue
 		}
 
-		RPS += *plan.RPS.Step
+		RPS = int(math.Min(float64(RPS+*plan.RPS.Step), float64(*plan.RPS.Max)))
 		sendRps(ch, &RPS)
 	}
 }

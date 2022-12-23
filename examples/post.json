@@ -1,0 +1,18 @@
+{
+  "url": "http://localhost:3000/user",
+  "method": "POST",
+  "duration": 1,
+  "rps": {
+    "value": 1,
+    "step": 2,
+    "interval": 10,
+    "max": 3
+  },
+  "body": {
+    "value": {
+      "name": "some user",
+      "last_name": "some last name",
+      "age": 20
+    }
+  }
+}
