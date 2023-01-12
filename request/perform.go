@@ -1,7 +1,7 @@
 package request
 
 import (
-	"andr-ll/gain/conf"
+	"andr-ii/gain/conf"
 	"net/http"
 	"time"
 )

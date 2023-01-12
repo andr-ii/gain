@@ -5,7 +5,7 @@ Inspired by [k6](https://github.com/grafana/k6) and [yandex-tank](https://github
 
 ## ** IN DEVELOPMENT **
 
-<img src="https://github.com/andr-ll/gain/blob/master/assets/gain.png?raw=true"/>
+<img src="https://github.com/andr-ii/gain/blob/master/assets/gain.png?raw=true"/>
 
 ## Installation
 
@@ -16,7 +16,7 @@ Make sure your machine has [go1.19](https://go.dev/doc/install) (or higher) inst
 Simply run:
 
 ```bash
-curl -s -L 'https://raw.githubusercontent.com/andr-ll/gain/master/scripts/install.sh' | bash
+curl -s -L 'https://raw.githubusercontent.com/andr-ii/gain/master/scripts/install.sh' | bash
 ```
 
 Then add following line to your `.bashrc` | `.zshrc` | etc.

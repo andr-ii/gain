@@ -1,7 +1,7 @@
 package metrics
 
 import (
-	"andr-ll/gain/terminal"
+	"andr-ii/gain/terminal"
 	"fmt"
 )
 

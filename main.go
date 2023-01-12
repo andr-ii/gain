@@ -1,10 +1,10 @@
 package main
 
 import (
-	"andr-ll/gain/conf"
-	"andr-ll/gain/metrics"
-	"andr-ll/gain/request"
-	"andr-ll/gain/terminal"
+	"andr-ii/gain/conf"
+	"andr-ii/gain/metrics"
+	"andr-ii/gain/request"
+	"andr-ii/gain/terminal"
 	"os"
 	"os/signal"
 	"syscall"

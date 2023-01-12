@@ -1,6 +1,6 @@
 package metrics
 
-import "andr-ll/gain/conf"
+import "andr-ii/gain/conf"
 
 func Generate(ch chan conf.AppData) {
 	responses := initResponses()

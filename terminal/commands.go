@@ -1,8 +1,8 @@
 package terminal
 
 import (
-	"andr-ll/gain/colors"
-	"andr-ll/gain/conf"
+	"andr-ii/gain/colors"
+	"andr-ii/gain/conf"
 	"fmt"
 )
 
