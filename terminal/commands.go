@@ -1,9 +1,9 @@
 package terminal
 
 import (
-	"andr-ii/gain/colors"
-	"andr-ii/gain/conf"
 	"fmt"
+	"github.com/andr-ii/punchy/colors"
+	"github.com/andr-ii/punchy/conf"
 )
 
 const (

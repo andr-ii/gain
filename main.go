@@ -1,14 +1,15 @@
 package main
 
 import (
-	"andr-ii/gain/conf"
-	"andr-ii/gain/metrics"
-	"andr-ii/gain/request"
-	"andr-ii/gain/terminal"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/andr-ii/punchy/conf"
+	"github.com/andr-ii/punchy/metrics"
+	"github.com/andr-ii/punchy/request"
+	"github.com/andr-ii/punchy/terminal"
 )
 
 func main() {

@@ -1,11 +1,11 @@
 package request
 
 import (
-	"andr-ii/gain/conf"
-	"andr-ii/gain/random"
 	"bytes"
 	"context"
 	"encoding/json"
+	"github.com/andr-ii/punchy/conf"
+	"github.com/andr-ii/punchy/random"
 	"io"
 	"net/http"
 )

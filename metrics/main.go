@@ -1,6 +1,6 @@
 package metrics
 
-import "andr-ii/gain/conf"
+import "github.com/andr-ii/punchy/conf"
 
 func Generate(ch chan conf.AppData) {
 	responses := initResponses()

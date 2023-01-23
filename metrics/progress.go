@@ -1,9 +1,9 @@
 package metrics
 
 import (
-	"andr-ii/gain/colors"
-	"andr-ii/gain/conf"
-	"andr-ii/gain/terminal"
+	"github.com/andr-ii/punchy/colors"
+	"github.com/andr-ii/punchy/conf"
+	"github.com/andr-ii/punchy/terminal"
 	"time"
 )
 
