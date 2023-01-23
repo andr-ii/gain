@@ -1,7 +1,7 @@
 package request
 
 import (
-	"andr-ii/gain/conf"
+	"github.com/andr-ii/punchy/conf"
 	"math"
 	"time"
 )

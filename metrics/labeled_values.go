@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"andr-ii/gain/terminal"
 	"fmt"
+	"github.com/andr-ii/punchy/terminal"
 )
 
 type labeledValues[T int | float32] struct {

@@ -1,9 +1,9 @@
 package metrics
 
 import (
-	"andr-ii/gain/conf"
-	"andr-ii/gain/terminal"
 	"fmt"
+	"github.com/andr-ii/punchy/conf"
+	"github.com/andr-ii/punchy/terminal"
 	"sync"
 )
 
